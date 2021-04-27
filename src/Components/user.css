@@ -1,0 +1,25 @@
+.Card {
+  width: 200px;
+  height: 250px;
+  font-size: 15px;
+  background-color: rgb(134, 134, 134);
+  border-radius: 12px;
+  margin: 10px;
+  color: #fff;
+}
+
+.Container {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  width: 1200px;
+}
+.Cardred {
+  width: 200px;
+  height: 250px;
+  font-size: 15px;
+  background-color: rgb(129, 26, 26);
+  border-radius: 12px;
+  margin: 10px;
+  color: #fff;
+}
