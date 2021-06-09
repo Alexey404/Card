@@ -1,19 +1,23 @@
-import React, { useState } from "react";
-import "./user.css";
+import { useEffect, useState } from 'react'
 
-function Card(props) {
-  
-  const [some, setSome] = useState(false);
+const Table = ({ item, activeAll, mode }) => {
+  const [active, setActive] = useState(activeAll)
+
+  useEffect(() => {
+    setActive(mode ? !active : activeAll)
+  }, [activeAll])
 
   const handler = () => {
-    setSome(!some);
-  };
+    setActive(!active)
+  }
+
+  const color = active ? 'green' : 'red'
 
   return (
-    <div onClick={handler} className={some ? "Cardred" : "Card"}>
-      {props.name}
+    <div onClick={handler} style={{ color }}>
+      {item.name}
     </div>
-  );
+  )
 }
 
-export default Card;
+export default Table

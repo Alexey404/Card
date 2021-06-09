@@ -1,13 +1,23 @@
-import React from "react";
-import "./App.css";
-import Form from "./Components/users";
+import { useEffect, useState } from 'react'
 
-function App() {
+const Table = ({ item, activeAll, mode }) => {
+  const [active, setActive] = useState(activeAll)
+
+  useEffect(() => {
+    setActive(mode ? !active : activeAll)
+  }, [activeAll])
+
+  const handler = () => {
+    setActive(!active)
+  }
+
+  const color = active ? 'green' : 'red'
+
   return (
-    <div className="App">
-      <Form />
+    <div onClick={handler} style={{ color }}>
+      {item.name}
     </div>
-  );
+  )
 }
 
-export default App;
+export default Table
