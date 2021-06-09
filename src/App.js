@@ -1,23 +1,46 @@
 import { useEffect, useState } from 'react'
+import Card from './Components/Card'
+import './App.css'
 
-const Table = ({ item, activeAll, mode }) => {
-  const [active, setActive] = useState(activeAll)
+const App = () => {
+  const [state, setState] = useState([])
+  const [active, setActive] = useState(false)
+  const [mode, setMode] = useState(false)
 
   useEffect(() => {
-    setActive(mode ? !active : activeAll)
-  }, [activeAll])
+    fetch(`https://jsonplaceholder.typicode.com/users`)
+      .then(res => res.json())
+      .then(result => {
+        setState(result)
+      })
+  }, [])
 
   const handler = () => {
     setActive(!active)
   }
-
-  const color = active ? 'green' : 'red'
+  const revers = () => {
+    setMode(!mode)
+  }
 
   return (
-    <div onClick={handler} style={{ color }}>
-      {item.name}
+    <div className='App'>
+      <div>
+        {state.map(item => (
+          <Card key={item.id} activeAll={active} mode={mode} item={item} />
+        ))}
+      </div>
+      <div>
+        <button onClick={handler}>All</button>
+      </div>
+      <div>
+        {!mode ? (
+          <button onClick={revers}>Реверс</button>
+        ) : (
+          <button onClick={revers}>Синхронно</button>
+        )}
+      </div>
     </div>
   )
 }
 
-export default Table
+export default App

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const Table = ({ item, activeAll, mode }) => {
+const Card = ({ item, activeAll, mode }) => {
   const [active, setActive] = useState(activeAll)
 
   useEffect(() => {
@@ -20,4 +20,4 @@ const Table = ({ item, activeAll, mode }) => {
   )
 }
 
-export default Table
+export default Card
