@@ -9,8 +9,7 @@ const Form = ({ addNewTodo }) => {
     setstate('')
   }
 
-  const newText = e => {
-    const newValue = e.currentTarget.value
+  const newText = newValue => {
     if (newValue.length > 40) return
     setstate(newValue)
   }
@@ -18,7 +17,11 @@ const Form = ({ addNewTodo }) => {
   return (
     <>
       <div className={s.form}>
-        <input className={s.input} value={state} onChange={newText} />
+        <input
+          className={s.input}
+          value={state}
+          onChange={e => newText(e.currentTarget.value)}
+        />
         <button className={s.btn} onClick={addCard}>
           Add
         </button>

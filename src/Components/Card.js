@@ -5,7 +5,7 @@ import { AiFillDelete } from 'react-icons/ai'
 const Card = ({ item, removeTodo, updateTodo }) => {
   const [isUpdate, setUpdate] = useState(false)
   const [active, setActive] = useState(false)
-  const [newTodo, setnewTodo] = useState(item.name)
+  const [newTodo, setNewTodo] = useState(item.name)
 
   const handler = () => {
     setUpdate(!isUpdate)
@@ -16,11 +16,14 @@ const Card = ({ item, removeTodo, updateTodo }) => {
   const newText = e => {
     const newValue = e.currentTarget.value
     if (newValue.length > 40) return
-    setnewTodo(newValue)
+    setNewTodo(newValue)
   }
 
   const updateClikc = () => {
-    if (!newTodo || /^s*$/.test(newTodo)) return
+    if (!newTodo) {
+      updateTodo(item.id, null)
+    }
+    if (/^s*$/.test(newTodo)) return
     updateTodo(item.id, newTodo)
     handler()
   }

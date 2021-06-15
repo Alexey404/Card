@@ -20,6 +20,10 @@ const App = () => {
   }
 
   const updateTodo = (id, newValue) => {
+    if (newValue === null) {
+      removeTodo(id)
+      return
+    }
     const updateArr = state.map(item =>
       item.id === id ? { ...item, name: newValue } : item
     )
@@ -28,7 +32,7 @@ const App = () => {
 
   const addNewTodo = value => {
     if (!value || /^s*$/.test(value)) return
-    setState([...state, { name: value, id: value }])
+    setState([...state, { name: value, id: Math.random() * 1000 }])
   }
 
   return (
