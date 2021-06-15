@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import Card from './Components/Card'
-import './App.css'
+import Form from './Components/Form'
+import s from './App.module.scss'
 
 const App = () => {
   const [state, setState] = useState([])
-  const [active, setActive] = useState(false)
-  const [mode, setMode] = useState(false)
 
   useEffect(() => {
     fetch(`https://jsonplaceholder.typicode.com/users`)
@@ -15,29 +14,35 @@ const App = () => {
       })
   }, [])
 
-  const handler = () => {
-    setActive(!active)
+  const removeTodo = id => {
+    const removeTodos = [...state].filter(todo => todo.id !== id)
+    setState(removeTodos)
   }
-  const revers = () => {
-    setMode(!mode)
+
+  const updateTodo = (id, newValue) => {
+    const updateArr = state.map(item =>
+      item.id === id ? { ...item, name: newValue } : item
+    )
+    setState(updateArr)
+  }
+
+  const addNewTodo = value => {
+    if (!value || /^s*$/.test(value)) return
+    setState([...state, { name: value, id: value }])
   }
 
   return (
-    <div className='App'>
-      <div>
-        {state.map(item => (
-          <Card key={item.id} activeAll={active} mode={mode} item={item} />
+    <div className={s.App}>
+      <Form addNewTodo={addNewTodo} />
+      <div className={s.cards}>
+        {state.map((item, index) => (
+          <Card
+            key={item.id + index}
+            item={item}
+            removeTodo={removeTodo}
+            updateTodo={updateTodo}
+          />
         ))}
-      </div>
-      <div>
-        <button onClick={handler}>All</button>
-      </div>
-      <div>
-        {!mode ? (
-          <button onClick={revers}>Реверс</button>
-        ) : (
-          <button onClick={revers}>Синхронно</button>
-        )}
       </div>
     </div>
   )

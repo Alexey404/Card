@@ -1,21 +1,56 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import s from './Card.module.scss'
+import { AiFillDelete } from 'react-icons/ai'
 
-const Card = ({ item, activeAll, mode }) => {
-  const [active, setActive] = useState(activeAll)
-
-  useEffect(() => {
-    setActive(mode ? !active : activeAll)
-  }, [activeAll])
+const Card = ({ item, removeTodo, updateTodo }) => {
+  const [isUpdate, setUpdate] = useState(false)
+  const [active, setActive] = useState(false)
+  const [newTodo, setnewTodo] = useState(item.name)
 
   const handler = () => {
+    setUpdate(!isUpdate)
+  }
+  const handlerActive = () => {
     setActive(!active)
   }
+  const newText = e => {
+    const newValue = e.currentTarget.value
+    if (newValue.length > 40) return
+    setnewTodo(newValue)
+  }
 
-  const color = active ? 'green' : 'red'
+  const updateClikc = () => {
+    if (!newTodo || /^s*$/.test(newTodo)) return
+    updateTodo(item.id, newTodo)
+    handler()
+  }
 
   return (
-    <div onClick={handler} style={{ color }}>
-      {item.name}
+    <div className={s.card}>
+      {isUpdate ? (
+        <>
+          <input
+            className={s.inputCard}
+            value={newTodo}
+            autoFocus={true}
+            onChange={newText}
+            onBlur={updateClikc}
+          />
+        </>
+      ) : (
+        <>
+          <span
+            className={s.cardText}
+            onClick={handlerActive}
+            onDoubleClick={handler}
+          >
+            {item.name}
+          </span>
+        </>
+      )}
+      <span className={s.btnDelete} onClick={() => removeTodo(item.id)}>
+        <AiFillDelete color={'rgb(250, 99, 11)'} width='30px' />
+      </span>
     </div>
   )
 }

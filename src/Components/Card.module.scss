@@ -1,0 +1,48 @@
+.card {
+  background: linear-gradient(90deg, rgb(15, 11, 250), rgb(119, 22, 114));
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.form {
+  margin: 5px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  background: linear-gradient(90deg, rgb(119, 22, 114), rgb(15, 11, 250));
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+}
+
+.input {
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  background: transparent;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-color: rgb(15, 11, 250);
+}
+.inputCard {
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  background: transparent;
+  border: none;
+  border-color: rgb(0, 0, 0);
+  width: 90%;
+}
+.cardText {
+  color: #fff;
+}
+.btnDelete {
+  cursor: pointer;
+}
