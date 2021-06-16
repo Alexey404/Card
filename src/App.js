@@ -4,10 +4,7 @@ import Card from './Components/Card'
 import Form from './Components/Form'
 
 const App = () => {
-  const [state, setState] = useState([
-    { id: 1, name: '2', order: 2 },
-    { id: 2, name: '1', order: 1 },
-  ])
+  const [state, setState] = useState([{ id: 1, name: 'Welcome', order: 2 }])
   const [currentToDo, setCurrentToDo] = useState('')
 
   const removeTodo = id => {
