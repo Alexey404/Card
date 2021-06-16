@@ -30,19 +30,25 @@
   border-top: none;
   border-right: none;
   border-left: none;
-  border-color: rgb(15, 11, 250);
+  border-color: rgba(49, 37, 209, 0.842);
+  font-family: "Myriad Set Pro Ultralight Кириллический";
 }
 .inputCard {
+  padding: none;
+  border: none;
   color: #fff;
   font-size: 15px;
   outline: none;
   background: transparent;
-  border: none;
   border-color: rgb(0, 0, 0);
   width: 90%;
+  font-family: "Myriad Set Pro Ultralight Кириллический";
 }
 .cardText {
+  padding: none;
+  border: none;
   color: #fff;
+  font-family: "Myriad Set Pro Ultralight Кириллический";
 }
 .btnDelete {
   cursor: pointer;

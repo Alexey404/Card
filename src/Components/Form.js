@@ -10,6 +10,7 @@ const Form = ({ addNewTodo }) => {
   }
 
   const newText = newValue => {
+    if (!newValue || /^s*$/.test(newValue)) return
     if (newValue.length > 40) return
     setstate(newValue)
   }

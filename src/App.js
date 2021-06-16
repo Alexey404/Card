@@ -1,18 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import s from './App.module.scss'
 import Card from './Components/Card'
 import Form from './Components/Form'
-import s from './App.module.scss'
 
 const App = () => {
-  const [state, setState] = useState([])
-
-  useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/users`)
-      .then(res => res.json())
-      .then(result => {
-        setState(result)
-      })
-  }, [])
+  const [state, setState] = useState([
+    { id: 1, name: '2', order: 2 },
+    { id: 2, name: '1', order: 1 },
+  ])
+  const [currentToDo, setCurrentToDo] = useState('')
 
   const removeTodo = id => {
     const removeTodos = [...state].filter(todo => todo.id !== id)
@@ -31,20 +27,53 @@ const App = () => {
   }
 
   const addNewTodo = value => {
-    if (!value || /^s*$/.test(value)) return
-    setState([...state, { name: value, id: Math.random() * 1000 }])
+    setState([
+      ...state,
+      {
+        id: Math.round(Math.random() * Math.random() * 1000 * Math.random()),
+        name: value,
+        order: state[0] ? state[state.length - 1].order + 1 : 1,
+      },
+    ])
+  }
+
+  const dropHandler = (e, card) => {
+    e.preventDefault()
+
+    setState(
+      state.map(c => {
+        if (c.id === card.id) {
+          return { ...c, order: currentToDo.order }
+        }
+        if (c.id === currentToDo.id) {
+          return { ...c, order: card.order }
+        }
+        return c
+      })
+    )
+  }
+
+  const sortCard = (a, b) => {
+    if (a.order > b.order) {
+      return 1
+    } else {
+      return -1
+    }
   }
 
   return (
     <div className={s.App}>
       <Form addNewTodo={addNewTodo} />
       <div className={s.cards}>
-        {state.map((item, index) => (
+        {state.sort(sortCard).map((item, index) => (
           <Card
-            key={item.id + index}
+            key={item.id}
             item={item}
             removeTodo={removeTodo}
             updateTodo={updateTodo}
+            setCurrentToDo={setCurrentToDo}
+            dropHandler={dropHandler}
+            index={index}
           />
         ))}
       </div>

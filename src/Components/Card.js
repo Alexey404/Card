@@ -1,18 +1,22 @@
 import { useState } from 'react'
-import s from './Card.module.scss'
 import { AiFillDelete } from 'react-icons/ai'
+import s from './Card.module.scss'
 
-const Card = ({ item, removeTodo, updateTodo }) => {
+const Card = ({
+  item,
+  removeTodo,
+  updateTodo,
+  setCurrentToDo,
+  dropHandler,
+  index,
+}) => {
   const [isUpdate, setUpdate] = useState(false)
-  const [active, setActive] = useState(false)
   const [newTodo, setNewTodo] = useState(item.name)
 
   const handler = () => {
     setUpdate(!isUpdate)
   }
-  const handlerActive = () => {
-    setActive(!active)
-  }
+
   const newText = e => {
     const newValue = e.currentTarget.value
     if (newValue.length > 40) return
@@ -28,8 +32,30 @@ const Card = ({ item, removeTodo, updateTodo }) => {
     handler()
   }
 
+  const dragStartHandler = (e, item) => {
+    setCurrentToDo(item)
+  }
+
+  const dragEndHandler = e => {
+    e.target.style.background =
+      'linear-gradient(90deg, rgb(15, 11, 250), rgb(119, 22, 114))'
+  }
+
+  const dragOverHandler = e => {
+    e.preventDefault()
+    e.target.style.background = 'rgba(1, 1, 1, 0.1)'
+  }
+
   return (
-    <div className={s.card}>
+    <div
+      onDragStart={e => dragStartHandler(e, item)}
+      onDrop={e => dropHandler(e, item, index)}
+      onDragLeave={e => dragEndHandler(e)}
+      onDragEnd={e => dragEndHandler(e)}
+      onDragOver={e => dragOverHandler(e)}
+      draggable={true}
+      className={s.card}
+    >
       {isUpdate ? (
         <>
           <input
@@ -41,18 +67,14 @@ const Card = ({ item, removeTodo, updateTodo }) => {
           />
         </>
       ) : (
-        <>
-          <span
-            className={s.cardText}
-            onClick={handlerActive}
-            onDoubleClick={handler}
-          >
+        <div>
+          <span className={s.cardText} onDoubleClick={handler}>
             {item.name}
           </span>
-        </>
+        </div>
       )}
       <span className={s.btnDelete} onClick={() => removeTodo(item.id)}>
-        <AiFillDelete color={'rgb(250, 99, 11)'} width='30px' />
+        <AiFillDelete color={'rgb(250, 99, 11)'} />
       </span>
     </div>
   )
