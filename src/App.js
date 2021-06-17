@@ -36,10 +36,13 @@ const App = () => {
     setState([
       ...state,
       {
-        id: Math.round(
-          Math.random() * Math.random() * 1000 * Math.random() +
-            value.length * 1000
-        ),
+        id:
+          Math.max.apply(
+            Math,
+            state.map(i => {
+              return i.id
+            })
+          ) + 1,
         name: value,
         order: state[0]
           ? Math.max.apply(
