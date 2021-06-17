@@ -33,16 +33,18 @@ const App = () => {
 
   const addNewTodo = value => {
     if (!value || /^s*$/.test(value)) return
+
     setState([
       ...state,
       {
-        id:
-          Math.max.apply(
-            Math,
-            state.map(i => {
-              return i.id
-            })
-          ) + 1,
+        id: state[0]
+          ? Math.max.apply(
+              Math,
+              state.map(i => {
+                return i.id
+              })
+            ) + 1
+          : 1,
         name: value,
         order: state[0]
           ? Math.max.apply(
@@ -55,6 +57,8 @@ const App = () => {
       },
     ])
   }
+
+  console.log(state)
 
   const dropHandler = (e, card) => {
     e.preventDefault()
