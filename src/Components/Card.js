@@ -8,7 +8,6 @@ const Card = ({
   updateTodo,
   setCurrentToDo,
   dropHandler,
-  index,
 }) => {
   const [isUpdate, setUpdate] = useState(false)
   const [newTodo, setNewTodo] = useState(item.name)
@@ -37,8 +36,10 @@ const Card = ({
   }
 
   const dragEndHandler = e => {
-    e.target.style.background =
-      'linear-gradient(90deg, rgb(15, 11, 250), rgb(119, 22, 114))'
+    e.preventDefault()
+    e.target.style = {
+      background: 'linear-gradient(90deg, rgb(15, 11, 250), rgb(119, 22, 114))',
+    }
   }
 
   const dragOverHandler = e => {
@@ -49,7 +50,7 @@ const Card = ({
   return (
     <div
       onDragStart={e => dragStartHandler(e, item)}
-      onDrop={e => dropHandler(e, item, index)}
+      onDrop={e => dropHandler(e, item)}
       onDragLeave={e => dragEndHandler(e)}
       onDragEnd={e => dragEndHandler(e)}
       onDragOver={e => dragOverHandler(e)}
@@ -73,7 +74,10 @@ const Card = ({
           </span>
         </div>
       )}
-      <span className={s.btnDelete} onClick={() => removeTodo(item.id)}>
+      <span
+        className={s.btnDelete}
+        onClick={() => removeTodo(item.id, item.order)}
+      >
         <AiFillDelete color={'rgb(250, 99, 11)'} />
       </span>
     </div>

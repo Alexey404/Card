@@ -4,12 +4,20 @@ import Card from './Components/Card'
 import Form from './Components/Form'
 
 const App = () => {
-  const [state, setState] = useState([{ id: 1, name: 'Welcome', order: 2 }])
+  const [state, setState] = useState([{ id: 1, name: 'Welcome', order: 1 }])
   const [currentToDo, setCurrentToDo] = useState('')
 
-  const removeTodo = id => {
-    const removeTodos = [...state].filter(todo => todo.id !== id)
-    setState(removeTodos)
+  const removeTodo = (id, order) => {
+    setState(
+      [...state]
+        .filter(todo => todo.id !== id)
+        .map(item => {
+          if (item.order > order) {
+            return { ...item, order: item.order - 1 }
+          }
+          return item
+        })
+    )
   }
 
   const updateTodo = (id, newValue) => {
@@ -24,6 +32,7 @@ const App = () => {
   }
 
   const addNewTodo = value => {
+    if (!value || /^s*$/.test(value)) return
     setState([
       ...state,
       {
@@ -48,6 +57,10 @@ const App = () => {
         return c
       })
     )
+
+    e.target.style = {
+      background: 'linear-gradient(90deg, rgb(15, 11, 250), rgb(119, 22, 114))',
+    }
   }
 
   const sortCard = (a, b) => {
@@ -62,17 +75,20 @@ const App = () => {
     <div className={s.App}>
       <Form addNewTodo={addNewTodo} />
       <div className={s.cards}>
-        {state.sort(sortCard).map((item, index) => (
-          <Card
-            key={item.id}
-            item={item}
-            removeTodo={removeTodo}
-            updateTodo={updateTodo}
-            setCurrentToDo={setCurrentToDo}
-            dropHandler={dropHandler}
-            index={index}
-          />
-        ))}
+        {state
+          .sort(sortCard)
+
+          .map((item, index) => (
+            <Card
+              key={item.id}
+              item={item}
+              removeTodo={removeTodo}
+              updateTodo={updateTodo}
+              setCurrentToDo={setCurrentToDo}
+              dropHandler={dropHandler}
+              index={index}
+            />
+          ))}
       </div>
     </div>
   )
