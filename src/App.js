@@ -36,9 +36,19 @@ const App = () => {
     setState([
       ...state,
       {
-        id: Math.round(Math.random() * Math.random() * 1000 * Math.random()),
+        id: Math.round(
+          Math.random() * Math.random() * 1000 * Math.random() +
+            value.length * 1000
+        ),
         name: value,
-        order: state[0] ? state[state.length - 1].order + 1 : 1,
+        order: state[0]
+          ? Math.max.apply(
+              Math,
+              state.map(i => {
+                return i.order
+              })
+            ) + 1
+          : 1,
       },
     ])
   }
@@ -64,7 +74,7 @@ const App = () => {
   }
 
   const sortCard = (a, b) => {
-    if (a.order > b.order) {
+    if (a.order < b.order) {
       return 1
     } else {
       return -1
@@ -75,20 +85,17 @@ const App = () => {
     <div className={s.App}>
       <Form addNewTodo={addNewTodo} />
       <div className={s.cards}>
-        {state
-          .sort(sortCard)
-
-          .map((item, index) => (
-            <Card
-              key={item.id}
-              item={item}
-              removeTodo={removeTodo}
-              updateTodo={updateTodo}
-              setCurrentToDo={setCurrentToDo}
-              dropHandler={dropHandler}
-              index={index}
-            />
-          ))}
+        {state.sort(sortCard).map((item, index) => (
+          <Card
+            key={item.id}
+            item={item}
+            removeTodo={removeTodo}
+            updateTodo={updateTodo}
+            setCurrentToDo={setCurrentToDo}
+            dropHandler={dropHandler}
+            index={index}
+          />
+        ))}
       </div>
     </div>
   )
