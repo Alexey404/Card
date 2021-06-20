@@ -1,11 +1,14 @@
-.card {
+.toDo {
+  height: 30px;
   background: linear-gradient(90deg, rgb(15, 11, 250), rgb(119, 22, 114));
   border-radius: 5px;
   padding: 5px;
-  margin: 5px;
+  margin: 10px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
+
 .form {
   margin: 5px;
   padding: 5px;
@@ -33,7 +36,8 @@
   border-color: rgba(49, 37, 209, 0.842);
   font-family: "Myriad Set Pro Ultralight Кириллический";
 }
-.inputCard {
+
+.inputToDo {
   padding: none;
   border: none;
   color: #fff;
@@ -44,12 +48,14 @@
   width: 90%;
   font-family: "Myriad Set Pro Ultralight Кириллический";
 }
-.cardText {
+
+.ToDoText {
   padding: none;
   border: none;
   color: #fff;
   font-family: "Myriad Set Pro Ultralight Кириллический";
 }
+
 .btnDelete {
   cursor: pointer;
 }

@@ -1,25 +1,48 @@
 .App {
   margin: 0 auto;
-  width: 500px;
+  width: 600px;
   padding-bottom: 10px;
   margin-top: 20px;
   border-radius: 10px;
   background: rgb(13, 4, 53);
 }
+
 .cards {
   margin: 0 auto;
   width: 400px;
-  height: 500px;
+  height: 450px;
   border-radius: 10px;
   overflow: auto;
   overflow-wrap: unset;
   margin-bottom: 20px;
+  background: rgb(18, 6, 71);
 }
+
 .cards::-webkit-scrollbar {
-  width: 5px;
-  background: transparent;
-  position: absolute;
+  width: 0;
 }
-.cards::-webkit-scrollbar-thumb {
-  background-color: rgb(27, 66, 194);
+
+.delete {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  margin-top: 350px;
+  color: rgb(226, 102, 19);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+}
+
+.heading {
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  font-family: "Myriad Set Pro Ultralight Кириллический";
+  padding-top: 10px;
+}
+
+.iconDelete {
+  pointer-events: none;
+  transition: font-size 0.2s;
 }
