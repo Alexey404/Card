@@ -23,6 +23,7 @@
   border: none;
   padding: 5px 10px;
   outline: none;
+  cursor: pointer;
 }
 
 .input {
@@ -34,7 +35,7 @@
   border-right: none;
   border-left: none;
   border-color: rgba(49, 37, 209, 0.842);
-  font-family: "Myriad Set Pro Ultralight Кириллический";
+  font-family: 'Myriad Set Pro Ultralight Кириллический';
 }
 
 .inputToDo {
@@ -46,16 +47,31 @@
   background: transparent;
   border-color: rgb(0, 0, 0);
   width: 90%;
-  font-family: "Myriad Set Pro Ultralight Кириллический";
+  font-family: 'Myriad Set Pro Ultralight Кириллический';
 }
 
 .ToDoText {
-  padding: none;
+  display: line;
   border: none;
   color: #fff;
-  font-family: "Myriad Set Pro Ultralight Кириллический";
+  font-family: 'Myriad Set Pro Ultralight Кириллический';
+  background: 'none';
 }
 
 .btnDelete {
+  width: auto;
   cursor: pointer;
+  color: rgb(255, 102, 0);
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  :hover {
+    font-size: 24px;
+    color: rgb(255, 51, 0);
+    transition: all 0.1s;
+  }
 }

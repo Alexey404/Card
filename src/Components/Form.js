@@ -1,34 +1,34 @@
-import { useState } from "react";
-import s from "./ToDo.module.scss";
+import { useState } from 'react'
+import s from './ToDo.module.scss'
 
 const Form = ({ addNewTodo }) => {
-  const [state, setstate] = useState("");
+  const [state, setState] = useState('')
 
-  const addCard = () => {
-    addNewTodo(state);
-    setstate("");
-  };
+  const addTodo = () => {
+    addNewTodo(state)
+    setState('')
+  }
 
   const newText = (newValue) => {
-    if (newValue.length > 40) return;
-    setstate(newValue);
-  };
+    if (newValue.length > 30) return
+    setState(newValue.replace(/ +/g, ' '))
+  }
 
   return (
     <>
       <div className={s.form}>
         <input
           className={s.input}
-          placeholder={"Add To Do"}
+          placeholder={'Add To Do'}
           value={state}
           onChange={(e) => newText(e.currentTarget.value)}
         />
-        <button className={s.btn} onClick={addCard}>
+        <button className={s.btn} onClick={addTodo}>
           Add
         </button>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Form;
+export default Form

@@ -1,73 +1,48 @@
-import { useState } from "react";
-import s from "./ToDo.module.scss";
+import { CloseCircleOutlined } from '@ant-design/icons'
+import { useState } from 'react'
+import s from './ToDo.module.scss'
 
-export const ToDo = ({ item, updateTodo, setCurrentToDo, dropHandler }) => {
-  const [isUpdate, setUpdate] = useState(false);
-  const [newTodo, setNewTodo] = useState(item.name);
+export const ToDo = ({ item, updateTodo, removeTodo }) => {
+  const [isUpdate, setUpdate] = useState(false)
+  const [newTodo, setNewTodo] = useState(item.value)
 
   const handler = () => {
-    setUpdate(!isUpdate);
-  };
+    setUpdate(!isUpdate)
+  }
 
   const newText = (e) => {
-    const newValue = e.currentTarget.value;
-    if (newValue.length > 40) return;
-    setNewTodo(newValue);
-  };
+    if (e.length > 30) return
+    setNewTodo(e.replace(/ +/g, ' '))
+  }
 
   const updateClikc = () => {
-    if (!newTodo) {
-      updateTodo(item.id, null);
-    }
-    if (/^s*$/.test(newTodo)) return;
-    updateTodo(item.id, newTodo);
-    handler();
-  };
-
-  const dragStartHandler = (e, item) => {
-    setCurrentToDo(item);
-    e.target.style.background = "rgba(1, 1, 1, 0.1)";
-  };
-
-  const dragEndHandler = (e) => {
-    e.preventDefault();
-    e.target.style = {
-      background: "linear-gradient(90deg, rgb(15, 11, 250), rgb(119, 22, 114))",
-    };
-  };
-
-  const dragOverHandler = (e) => {
-    e.preventDefault();
-    e.target.style.background = "rgba(1, 1, 1, 0.1)";
-  };
+    updateTodo(item.id, newTodo ? newTodo : null)
+    handler()
+  }
 
   return (
-    <div
-      onDragStart={(e) => dragStartHandler(e, item)}
-      onDrop={(e) => dropHandler(e, item)}
-      onDragLeave={(e) => dragEndHandler(e)}
-      onDragEnd={(e) => dragEndHandler(e)}
-      onDragOver={(e) => dragOverHandler(e)}
-      draggable={true}
-      className={s.toDo}
-    >
+    <div className={s.toDo}>
       {isUpdate ? (
         <>
           <input
             className={s.inputToDo}
             value={newTodo}
             autoFocus={true}
-            onChange={newText}
+            onChange={(e) => newText(e.currentTarget.value)}
             onBlur={updateClikc}
           />
         </>
       ) : (
-        <div>
-          <span className={s.ToDoText} onDoubleClick={handler}>
-            {item.name}
-          </span>
-        </div>
+        <span className={s.ToDoText} onDoubleClick={handler}>
+          {item.value}
+        </span>
       )}
+      <div
+        className={s.btnDelete}
+        onClick={() => removeTodo(item.id, item.order)}
+      >
+        <CloseCircleOutlined />
+      </div>
     </div>
-  );
-};
+  )
+}
