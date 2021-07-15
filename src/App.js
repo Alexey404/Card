@@ -55,20 +55,22 @@ export const App = () => {
   }
 
   return (
-    <div className={s.App}>
-      <div className={s.heading}>Welcome</div>
-      <Form addNewTodo={addNewTodo} />
-      <div style={{ display: 'flex', height: '60%' }}>
-        <div className={s.cards}>
-          {state.sort(sortCard).map((item, index) => (
-            <ToDo
-              key={item.id}
-              item={item}
-              removeTodo={removeTodo}
-              updateTodo={updateTodo}
-              index={index}
-            />
-          ))}
+    <div className={s.Container}>
+      <div className={s.App}>
+        <div className={s.heading}>To Do</div>
+        <Form addNewTodo={addNewTodo} />
+        <div style={{ display: 'flex', height: '60%' }}>
+          <div className={s.cards}>
+            {state.sort(sortCard).map((item, index) => (
+              <ToDo
+                key={item.id}
+                item={item}
+                removeTodo={removeTodo}
+                updateTodo={updateTodo}
+                index={index}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

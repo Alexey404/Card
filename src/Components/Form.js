@@ -10,7 +10,7 @@ const Form = ({ addNewTodo }) => {
   }
 
   const newText = (newValue) => {
-    if (newValue.length > 30) return
+    if (newValue.length > 60) return
     setState(newValue.replace(/ +/g, ' '))
   }
 

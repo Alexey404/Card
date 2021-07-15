@@ -11,7 +11,7 @@ export const ToDo = ({ item, updateTodo, removeTodo }) => {
   }
 
   const newText = (e) => {
-    if (e.length > 30) return
+    if (e.length > 60) return
     setNewTodo(e.replace(/ +/g, ' '))
   }
 
